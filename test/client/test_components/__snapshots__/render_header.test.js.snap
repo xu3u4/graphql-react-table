@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render <RenderHeader> should render all columns inside <thead> 1`] = `
+<thead>
+  <tr>
+    <th>
+      seq
+    </th>
+    <th>
+      Status
+    </th>
+    <th>
+      Category
+    </th>
+    <th>
+      Title
+    </th>
+    <th>
+      Owner
+    </th>
+    <th>
+      Priority
+    </th>
+    <th>
+      Action
+    </th>
+  </tr>
+</thead>
+`;

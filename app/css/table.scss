@@ -1,0 +1,34 @@
+table{
+  border-collapse: collapse;
+
+  th, td{
+    border: 1px solid #333333;
+    text-align: center;
+  }
+  td{
+    width: 100px;
+    input{
+      width: 90px;
+    }
+    .hideMessage{
+      visibility: hidden;
+    }
+    .showMessage{
+      visibility: visible;
+      color: red;
+    }
+  }
+
+  .input_row{
+    border: none;
+    border-bottom: 2px solid #0A4C9B;
+    margin-top: 10px;
+  }
+  .highlight{
+    background-color: #FFEC33;
+  }
+  .warning{
+    border: solid 1px red;
+  }
+}
+

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render <EditCell> should have <input> inside <td> 1`] = `
+<td
+  className="editCell"
+>
+  <input
+    className="input_row null"
+    onChange={[Function]}
+    value="cat1"
+  />
+  <span
+    className="hideMessage"
+  >
+    *Required
+  </span>
+</td>
+`;

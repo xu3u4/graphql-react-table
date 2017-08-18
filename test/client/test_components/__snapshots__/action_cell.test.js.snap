@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ActionCell> render components 1`] = `
+<td>
+  <button
+    onClick={[Function]}
+  >
+    Delete
+  </button>
+</td>
+`;
