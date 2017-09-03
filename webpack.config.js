@@ -20,13 +20,13 @@ module.exports = {
     publicPath: "/" //where index.html is
   },
   module: {
-    preLoaders: [
-      {
-        test: /\.jsx?$/,
-        loader: 'eslint',
-        exclude: [/node_modules/]
-      }
-    ],
+    // preLoaders: [
+    //   {
+    //     test: /\.jsx?$/,
+    //     loader: 'eslint',
+    //     exclude: [/node_modules/]
+    //   }
+    // ],
     loaders: [
       {
         test: /\.jsx?$/,
@@ -34,6 +34,13 @@ module.exports = {
           path.resolve(__dirname, "node_modules")
         ],
         loader: 'babel-loader' //preset is better to be set in .babelrc, it will be easier to manage if there are more than one env
+      },
+      {
+        test: /\.(graphql|gql)$/,
+        exclude: [
+          path.resolve(__dirname, "node_modules")
+        ],
+        loader: 'graphql-tag/loader'
       },
       {
         test: /\.css$/,
