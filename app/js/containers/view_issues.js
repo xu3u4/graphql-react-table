@@ -1,6 +1,9 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { graphql } from 'react-apollo';
+import React, { Component } from 'react';
 
+import * as queries from 'graphql/queries';
 import { editIssue, deleteIssue, getIssues, removeIssueTemp } from 'actions/action_index';
 import ViewIssues from 'components/view_issues';
 
@@ -21,4 +24,10 @@ const mapDispatchToProps = (dispatch) => (
   }, dispatch)
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(ViewIssues);
+const ViewIssuesWithData = graphql(queries.getIssues, {
+  props: ({ data: { getIssues } }) => ({
+    rows: getIssues
+  })
+})(ViewIssues);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ViewIssuesWithData);
