@@ -1,8 +1,8 @@
 import { gql } from 'react-apollo';
 
 export const deleteIssue = gql`
-  {
-    deleteIssue(id: 17)
+  query deleteQuery($deleteId: Int!) {
+    deleteIssue(id: $deleteId)
   }`;
 
 export const getIssues = gql`
@@ -18,15 +18,8 @@ export const getIssues = gql`
   }`;
 
 export const createIssue = gql`
-  mutation {
-    createIssue(issue: {
-      seq: 12
-      Status:"open"
-      Category:"t8"
-      Title:"t8"
-      Owner:"Jocelyn"
-      Priority:"9"
-    }) {
+  mutation createIssue($newIssue: IssueInput) {
+    createIssue(issue: $newIssue) {
       seq
       Status
       Category
@@ -37,13 +30,6 @@ export const createIssue = gql`
   }`;
 
 export const updateIssue = gql`
-  mutation {
-    updateIssue(id: 27, issue: {
-      seq: 27
-      Status:"open"
-      Category:"t91"
-      Title:"t8"
-      Owner:"Jocelyn"
-      Priority:"9"
-    })
+  mutation updateIssue($seq: Int!, $updatedIssue: IssueInput) {
+    updateIssue(id: $seq, issue: $updatedIssue)
   }`;

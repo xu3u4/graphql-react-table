@@ -7,52 +7,23 @@ export default function (state = {
   isShowWarning: false
 }, action) {
   switch (action.type) {
-    case 'GET_ISSUES_SUCCESS':
-      return {
-        ...state,
-        issues: action.payload
-      };
-    case 'DELETE_ISSUE_SUCCESS':
-      return {
-        ...state,
-        issues: [
-          ...state.issues.slice(0, action.payload),
-          ...state.issues.slice(action.payload + 1)
-        ]
-      };
-    case 'CREATE_ISSUE_SUCCESS':
-      return {
-        ...state,
-        isShowWarning: false,
-        newIssue: action.payload.seq,
-        selectedIssue: {},
-        issues: [
-          ...state.issues,
-          action.payload
-        ]
-      };
-    case 'UPDATE_ISSUE_SUCCESS': {
-      return {
-        ...state,
-        isShowWarning: false,
-        selectedIssue: {}
-      };
-    }
-    case 'GET_NEW_ISSUE':
-      return {
-        ...state,
-        newIssue: action.payload
-      };
     case 'SHOW_WARNING':
       return {
         ...state,
         isShowWarning: action.payload
       };
-    case 'ACTIVE_ISSUE':
+    case 'ENTER_EDIT_MODE':
       return {
         ...state,
         newIssue: 0,
         selectedIssue: action.payload,
+        isShowWarning: false
+      };
+    case 'END_EDIT_MODE':
+      return {
+        ...state,
+        newIssue: action.payload,
+        selectedIssue: {},
         isShowWarning: false
       };
     default:

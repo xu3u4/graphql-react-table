@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import update from 'immutability-helper';
 
+import * as queries from 'graphql/queries';
 import ActionCell from 'components/common/action_cell';
 import Cell from 'components/common/cell';
 import EditCell from 'components/common/edit_cell';
@@ -10,7 +11,7 @@ class EditIssue extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      editRow: this.props.selectedIssue || {}
+      editRow: this.props.selectedIssue
     };
     this.handleInput = this.handleInput.bind(this);
   }
@@ -43,14 +44,33 @@ class EditIssue extends Component {
     }
 
     if (this.props.selectedIssue.seq) {
-      this.props.updateIssues(this.state.editRow);
+      this.props.updateIssueMutation({
+        variables: {
+          seq: this.props.selectedIssue.seq,
+          updatedIssue: this.state.editRow
+        },
+        refetchQueries: [{
+          query: queries.getIssues
+        }]
+      }).then( () => {
+        this.props.endEditMode(this.props.selectedIssue.seq);
+        this.setState({
+          editRow: {}
+        });
+      });
     } else {
-      this.props.createIssue(this.state.editRow);
+      this.props.createIssueMutation({
+        variables: { newIssue: this.state.editRow },
+        refetchQueries: [{
+          query: queries.getIssues
+        }]
+      }).then( res => {
+        this.props.endEditMode(res.data.createIssue.seq);
+        this.setState({
+          editRow: {}
+        });
+      });
     }
-
-    this.setState({
-      editRow: {}
-    });
   }
 
   renderEditRow() {
@@ -110,9 +130,8 @@ EditIssue.propTypes = {
     Owner: PropTypes.string,
     Priority: PropTypes.string
   }).isRequired,
-  updateIssues: PropTypes.func.isRequired,
+  endEditMode: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired,
-  createIssue: PropTypes.func.isRequired,
   isShowWarning: PropTypes.bool.isRequired
 };
 

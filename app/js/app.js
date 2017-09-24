@@ -13,7 +13,11 @@ import TableFrame from './components/table_frame';
 const composedMiddlewares = compose(
     applyMiddleware(ReduxThunk, api, client.middleware())
   );
-const stores = createStore(reducers, {}, composedMiddlewares);
+const stores = createStore(reducers, { apollo: {
+  rows: [
+    { seq: 1, Status: 'Open', Category: 'cat1', Title: 'title1', Owner: 'Allen', Priority: '1' }
+  ]}
+}, composedMiddlewares);
 ReactDOM.render(
   <ApolloProvider store={stores} client={client}>
     <TableFrame />

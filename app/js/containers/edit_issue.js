@@ -1,7 +1,9 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { graphql, compose } from 'react-apollo';
 
-import { updateIssues, showWarning, createIssue } from 'actions/action_index';
+import * as queries from 'graphql/queries';
+import { showWarning, endEditMode } from 'actions/action_index';
 import EditIssue from 'components/edit_issue';
 
 const mapStateToProps = (state) => ({
@@ -12,10 +14,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchtoProps = (dispatch) => (
   bindActionCreators({
-    createIssue,
-    updateIssues,
-    showWarning
+    showWarning,
+    endEditMode
   }, dispatch)
 );
 
-export default connect(mapStateToProps, mapDispatchtoProps)(EditIssue);
+const CreateIssueMutation = compose(
+  graphql(queries.createIssue, { name: 'createIssueMutation' }),
+  graphql(queries.updateIssue, { name: 'updateIssueMutation' })
+)(EditIssue);
+export default connect(mapStateToProps, mapDispatchtoProps)(CreateIssueMutation);

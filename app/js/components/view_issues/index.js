@@ -11,21 +11,12 @@ class ViewIssues extends Component {
     this.handleSelectIssue = this.handleSelectIssue.bind(this);
   }
 
-  // componentDidMount() {
-  //   if (this.props.rows.length < 2) this.props.getIssues(queries.getIssues);
-  // }
-
   handleSelectIssue(selectIndex) {
-    this.props.editIssue(this.props.rows[selectIndex]);
-    this.props.removeIssueTemp(selectIndex);
+    this.props.editIssue(this.props.data.getIssues[selectIndex]);
   }
 
   render() {
-    console.log(123);
-    console.log(this.props);
-    const test = [
-      { seq: 1, Status: 'Open', Category: 'cat1', Title: 'title1', Owner: 'Allen', Priority: '1' }
-    ];
+    const { data } = this.props;
     return (
       <div>
         <table>
@@ -34,8 +25,11 @@ class ViewIssues extends Component {
           />
           <RenderTbody
             columns={this.props.columns}
-            rows={this.props.rows || test}
-            onDeleteIssue={(id, seq) => this.props.deleteIssue(id, seq)}
+            rows={data.getIssues || this.props.rows}
+            onDeleteIssue={(seq) => {
+              this.props.deleteIssue({deleteId: seq})
+                .then(() => { data.refetch() })
+            }}
             onSelectIssue={(i) => this.handleSelectIssue(i)}
             newIssue={this.props.newIssue}
           />
@@ -64,9 +58,7 @@ ViewIssues.propTypes = {
     label: PropTypes.string
   })).isRequired,
   newIssue: PropTypes.number.isRequired,
-  editIssue: PropTypes.func.isRequired,
-  deleteIssue: PropTypes.func.isRequired,
-  removeIssueTemp: PropTypes.func.isRequired
+  editIssue: PropTypes.func.isRequired
 };
 
 export default ViewIssues;
