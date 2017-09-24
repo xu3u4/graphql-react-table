@@ -28,11 +28,6 @@ const IssueInputType = new GraphQLInputObjectType({
   fields: defaultField
 });
 
-// const ResultType = new GraphQLObjectType({
-//   name: 'Result',
-//   fields: {result: { type: GraphQLBoolean }}
-// });
-
 const createIssue = {
   type: IssueType,
   args: {
@@ -40,10 +35,16 @@ const createIssue = {
   },
   resolve: (root, req) => {
     return new Promise((resolve, reject) => {
-      Issue.create(req.issue, (err, data) => {
-        console.log('***create issues***');
-        if(err) reject(err);
-        else resolve(data);
+      Issue.find({}).sort('-seq').limit(1).exec()
+      .then((doc) => {
+        req.issue.seq = doc.length === 0 ? 1 : doc[0].seq + 1;
+        Issue.create(req.issue, (err, data) => {
+          console.log('***create issues***');
+          if(err) reject(err);
+          else resolve(data);
+        });
+      }).catch((err) => {
+        reject(err);
       });
     })
   }
@@ -74,7 +75,7 @@ const getIssues = {
         console.log('***Get issues***');
         if(err) reject(err);
         else resolve(data);
-      });
+      }).sort('seq');
     })
   }
 };

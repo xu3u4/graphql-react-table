@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+mongoose.Promise = Promise;
+
 let issueSchema = new Schema({
   seq: { type: Number, unique: true },
   Status: { type: String },
