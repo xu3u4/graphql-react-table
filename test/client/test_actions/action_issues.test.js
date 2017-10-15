@@ -1,5 +1,3 @@
-// import fetchMock from 'fetch-mock';
-import { CALL_API } from 'middleware/api';
 import sinon from 'sinon';
 
 import * as actions from 'actions/action_index';
@@ -19,49 +17,15 @@ describe('action_index.js', () => {
 
   it('edit issue', () => {
     expect(actions.editIssue({})).toEqual({
-      type: 'ACTIVE_ISSUE',
+      type: 'ENTER_EDIT_MODE',
       payload: {}
     });
   });
 
-  it('get issues', () => {
-    const expectedAction = {
-      endpoint: '/issues',
-      method: 'GET',
-      types: [ActionTypes.GET_ISSUES_SUCCESS, ActionTypes.GET_ISSUES_ERROR]
-    };
-    expect(actions.getIssues()[CALL_API]).toEqual(expectedAction);
-  });
-
-  it('create issue', () => {
-    const expectedAction = {
-      endpoint: '/new_issue',
-      method: 'POST',
-      types: [ActionTypes.CREATE_ISSUE_SUCCESS, ActionTypes.CREATE_ISSUE_FAILED],
-      body: defaultIssues
-    };
-    expect(actions.createIssue(defaultIssues)[CALL_API]).toEqual(expectedAction);
-  });
-
-  it('update issues', () => {
-    const issue = {seq: 2};
-    const expectedAction = {
-      endpoint: `/${issue.seq}/edit`,
-      method: 'POST',
-      types: [ActionTypes.UPDATE_ISSUE_SUCCESS, ActionTypes.UPDATE_ISSUE_FAILED],
-      body: issue,
-      cb: cb
-    };
-    expect(actions.updateIssues({ seq: 2})[CALL_API].endpoint).toEqual(expectedAction.endpoint);
-  });
-
-  it('delete issue', () => {
-    const expectedAction = {
-      endpoint: '/1/delete',
-      method: 'GET',
-      types: [ActionTypes.DELETE_ISSUE_SUCCESS, ActionTypes.DELETE_ISSUE_FAILED],
-      cb: cb
-    };
-    expect(actions.deleteIssue(3, 1)[CALL_API].endpoint).toEqual(expectedAction.endpoint);
+  it('end edit mode', () => {
+    expect(actions.endEditMode({})).toEqual({
+      type: 'END_EDIT_MODE',
+      payload: {}
+    });
   });
 });
