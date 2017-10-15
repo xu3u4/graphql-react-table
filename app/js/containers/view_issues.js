@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { graphql, compose } from 'react-apollo';
-import React, { Component } from 'react';
 
 import * as queries from 'graphql/queries';
 import { editIssue } from 'actions/action_index';
@@ -26,7 +25,7 @@ const ViewIssuesWithData = compose(
       deleteIssue: refetch
     }),
     options: {
-      variables: { deleteId: 0 } 
+      variables: { deleteId: 0 }
     }
   })
 )(ViewIssues);

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Table from 'material-ui/Table';
 import RenderTbody from './render_tbody';
 
 // component name must be Uppercamel case
@@ -18,16 +17,16 @@ class ViewIssues extends Component {
   render() {
     const { data } = this.props;
     return (
-          <RenderTbody
-            columns={this.props.columns}
-            rows={data.getIssues || this.props.rows}
-            onDeleteIssue={(seq) => {
-              this.props.deleteIssue({deleteId: seq})
-                .then(() => { data.refetch() })
-            }}
-            onSelectIssue={(i) => this.handleSelectIssue(i)}
-            newIssue={this.props.newIssue}
-          />
+      <RenderTbody
+        columns={this.props.columns}
+        rows={data.getIssues || this.props.rows}
+        onDeleteIssue={(seq) => {
+          this.props.deleteIssue({ deleteId: seq })
+            .then(() => { data.refetch(); });
+        }}
+        onSelectIssue={(i) => this.handleSelectIssue(i)}
+        newIssue={this.props.newIssue}
+      />
     ); // end return
   } // end render
 } // end class
@@ -51,7 +50,23 @@ ViewIssues.propTypes = {
     label: PropTypes.string
   })).isRequired,
   newIssue: PropTypes.number.isRequired,
-  editIssue: PropTypes.func.isRequired
+  editIssue: PropTypes.func.isRequired,
+  deleteIssue: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    getIssues: PropTypes.arrayOf(
+      PropTypes.shape({
+        seq: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.number
+        ]),
+        Status: PropTypes.string,
+        Category: PropTypes.string,
+        Title: PropTypes.string,
+        Owner: PropTypes.string,
+        Priority: PropTypes.string
+      })
+    )
+  }).isRequired,
 };
 
 export default ViewIssues;

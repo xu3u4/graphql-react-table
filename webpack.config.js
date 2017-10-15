@@ -20,13 +20,13 @@ module.exports = {
     publicPath: "/" //where index.html is
   },
   module: {
-    // preLoaders: [
-    //   {
-    //     test: /\.jsx?$/,
-    //     loader: 'eslint',
-    //     exclude: [/node_modules/]
-    //   }
-    // ],
+    preLoaders: [
+      {
+        test: /\.jsx?$/,
+        loader: 'eslint',
+        exclude: [/node_modules/]
+      }
+    ],
     loaders: [
       {
         test: /\.jsx?$/,
@@ -50,7 +50,7 @@ module.exports = {
         loader: 'style-loader!css-loader'
       },
       {
-        test: /\.scss$/,
+        test: /\.scss/,
         loader: 'style!css!sass'
       }
     ]
