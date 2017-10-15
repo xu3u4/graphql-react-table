@@ -1,22 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import TextField from 'material-ui/TextField';
+import { TableCell } from 'material-ui/Table';
+
 const EditCell = (props) => {
   const showMessage = props.isShowWarning && !props.children.length;
 
   return (
-    <td className="editCell">
-      <input
-        className={`input_row ${showMessage ? 'warning' : null}`}
+    <TableCell className="editCell">
+      <TextField
         onChange={props.onInput}
         value={props.children}
+        helperText="*Required"
+        error={showMessage}
       />
-      <span
-        className={showMessage ? 'showMessage' : 'hideMessage'}
-      >
-        *Required
-      </span>
-    </td>
+    </TableCell>
   );
 };
 

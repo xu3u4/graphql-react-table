@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from 'material-ui/Button';
 
 const ActionCell = ({ action, children }) => (
   <td>
-    <button onClick={action}>{ children }</button>
+    <Button raised onClick={action} color="accent" className="button_margin">{ children }</Button>
   </td>
 );
 

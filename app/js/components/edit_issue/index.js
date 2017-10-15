@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import update from 'immutability-helper';
 
+import { TableBody, TableRow } from 'material-ui/Table';
 import * as queries from 'graphql/queries';
 import ActionCell from 'components/common/action_cell';
 import Cell from 'components/common/cell';
@@ -52,7 +53,7 @@ class EditIssue extends Component {
         refetchQueries: [{
           query: queries.getIssues
         }]
-      }).then( () => {
+      }).then(() => {
         this.props.endEditMode(this.props.selectedIssue.seq);
         this.setState({
           editRow: {}
@@ -64,7 +65,7 @@ class EditIssue extends Component {
         refetchQueries: [{
           query: queries.getIssues
         }]
-      }).then( res => {
+      }).then(res => {
         this.props.endEditMode(res.data.createIssue.seq);
         this.setState({
           editRow: {}
@@ -104,11 +105,7 @@ class EditIssue extends Component {
   }
 
   render() {
-    return (
-      <table>
-        <tbody><tr>{ this.renderEditRow() }</tr></tbody>
-      </table>
-    );
+    return <TableBody><TableRow>{ this.renderEditRow() }</TableRow></TableBody>;
   }
 }
 
@@ -132,7 +129,9 @@ EditIssue.propTypes = {
   }).isRequired,
   endEditMode: PropTypes.func.isRequired,
   showWarning: PropTypes.func.isRequired,
-  isShowWarning: PropTypes.bool.isRequired
+  isShowWarning: PropTypes.bool.isRequired,
+  updateIssueMutation: PropTypes.func.isRequired,
+  createIssueMutation: PropTypes.func.isRequired
 };
 
 export default EditIssue;

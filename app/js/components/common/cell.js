@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Cell = ({ children }) => <td>{ children }</td>;
+import { TableCell } from 'material-ui/Table';
+
+const Cell = ({ children }) => <TableCell>{ children }</TableCell>;
 
 Cell.propTypes = {
   children: PropTypes.oneOfType([

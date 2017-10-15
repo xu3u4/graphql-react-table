@@ -1,15 +1,16 @@
 import React from 'react';
 
+import Table from 'material-ui/Table';
+import IssueHeader from 'containers/render_header';
 import ViewIssues from 'containers/view_issues';
 import EditIssue from 'containers/edit_issue';
-import '../../css/table.scss';
-
 
 const TableFrame = () => (
-  <div>
+  <Table className="tableframe">
+    <IssueHeader />
     <ViewIssues />
     <EditIssue />
-  </div>
+  </Table>
 );
 
 export default TableFrame;

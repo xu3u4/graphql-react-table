@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import RenderHeader from './render_header';
+import Table from 'material-ui/Table';
 import RenderTbody from './render_tbody';
 
 // component name must be Uppercamel case
@@ -18,11 +18,6 @@ class ViewIssues extends Component {
   render() {
     const { data } = this.props;
     return (
-      <div>
-        <table>
-          <RenderHeader
-            columns={this.props.columns}
-          />
           <RenderTbody
             columns={this.props.columns}
             rows={data.getIssues || this.props.rows}
@@ -33,8 +28,6 @@ class ViewIssues extends Component {
             onSelectIssue={(i) => this.handleSelectIssue(i)}
             newIssue={this.props.newIssue}
           />
-        </table>
-      </div>
     ); // end return
   } // end render
 } // end class
