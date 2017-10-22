@@ -19,7 +19,12 @@ const mapDispatchToProps = (dispatch) => (
 );
 
 const ViewIssuesWithData = compose(
-  graphql(queries.getIssues),
+  graphql(queries.getIssues, {
+    props: ({ data: { getIssues, refetch } }) => ({
+      rows: getIssues,
+      getNewRows: refetch
+    })
+  }),
   graphql(queries.deleteIssue, {
     props: ({ data: { refetch } }) => ({
       deleteIssue: refetch

@@ -11,21 +11,24 @@ class ViewIssues extends Component {
   }
 
   handleSelectIssue(selectIndex) {
-    this.props.editIssue(this.props.data.getIssues[selectIndex]);
+    this.props.editIssue(this.props.rows[selectIndex]);
   }
 
   render() {
-    const { data } = this.props;
+    const { getNewRows, columns, rows, newIssue } = this.props;
+
+    if (!Array.isArray(rows)) return false;
     return (
       <RenderTbody
-        columns={this.props.columns}
-        rows={data.getIssues || this.props.rows}
+        columns={columns}
+        rows={rows}
         onDeleteIssue={(seq) => {
-          this.props.deleteIssue({ deleteId: seq })
-            .then(() => { data.refetch(); });
+          if (!(seq > 0)) return false;
+          return this.props.deleteIssue({ deleteId: seq })
+            .then(() => { getNewRows(); });
         }}
         onSelectIssue={(i) => this.handleSelectIssue(i)}
-        newIssue={this.props.newIssue}
+        newIssue={newIssue}
       />
     ); // end return
   } // end render
@@ -44,7 +47,7 @@ ViewIssues.propTypes = {
       Owner: PropTypes.string,
       Priority: PropTypes.string
     })
-  ).isRequired,
+  ),
   columns: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string,
     label: PropTypes.string
@@ -52,21 +55,7 @@ ViewIssues.propTypes = {
   newIssue: PropTypes.number.isRequired,
   editIssue: PropTypes.func.isRequired,
   deleteIssue: PropTypes.func.isRequired,
-  data: PropTypes.shape({
-    getIssues: PropTypes.arrayOf(
-      PropTypes.shape({
-        seq: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number
-        ]),
-        Status: PropTypes.string,
-        Category: PropTypes.string,
-        Title: PropTypes.string,
-        Owner: PropTypes.string,
-        Priority: PropTypes.string
-      })
-    )
-  }).isRequired,
+  getNewRows: PropTypes.func.isRequired
 };
 
 export default ViewIssues;
