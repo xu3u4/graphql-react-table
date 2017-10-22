@@ -1,38 +1,45 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import RenderTbody from './render_tbody';
 
 // component name must be Uppercamel case
-class ViewIssues extends Component {
-  constructor(props) {
-    super(props);
-    this.handleSelectIssue = this.handleSelectIssue.bind(this);
-  }
+const ViewIssues = (props) => {
+  const {
+    columns,
+    rows,
+    newIssue,
+    editIssue,
+    getNewRows,
+    deleteIssue
+  } = props;
 
-  handleSelectIssue(selectIndex) {
-    this.props.editIssue(this.props.rows[selectIndex]);
-  }
+  if (!Array.isArray(rows)) return false;
 
-  render() {
-    const { getNewRows, columns, rows, newIssue } = this.props;
+  const handleSelectIssue = (selectIndex) => {
+    editIssue(rows[selectIndex]);
+  };
 
-    if (!Array.isArray(rows)) return false;
-    return (
-      <RenderTbody
-        columns={columns}
-        rows={rows}
-        onDeleteIssue={(seq) => {
-          if (!(seq > 0)) return false;
-          return this.props.deleteIssue({ deleteId: seq })
-            .then(() => { getNewRows(); });
-        }}
-        onSelectIssue={(i) => this.handleSelectIssue(i)}
-        newIssue={newIssue}
-      />
-    ); // end return
-  } // end render
-} // end class
+  const handleDeleteIssue = (selectIndex) => {
+    if (!(selectIndex > 0)) return false;
+    return deleteIssue({ deleteId: selectIndex })
+      .then(() => { getNewRows(); });
+  };
+
+  return (
+    <RenderTbody
+      columns={columns}
+      rows={rows}
+      onDeleteIssue={(seq) => handleDeleteIssue(seq)}
+      onSelectIssue={(seq) => handleSelectIssue(seq)}
+      newIssue={newIssue}
+    />
+  );
+};
+
+ViewIssues.defaultProps = {
+  rows: []
+};
 
 ViewIssues.propTypes = {
   rows: PropTypes.arrayOf(
