@@ -1,21 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware, compose } from 'redux';
-import ReduxThunk from 'redux-thunk';
-import { ApolloProvider } from 'react-apollo';
-import client from 'graphql/client';
 
-import reducers from 'reducers';
-import TableFrame from 'components/table_frame';
+import Root from 'components/root';
 import '../css/table.scss';
 
-const composedMiddlewares = compose(
-    applyMiddleware(ReduxThunk, client.middleware())
-  );
-const stores = createStore(reducers, {}, composedMiddlewares);
 ReactDOM.render(
-  <ApolloProvider store={stores} client={client}>
-    <TableFrame />
-  </ApolloProvider>,
+  <Root />,
   document.getElementById('app')
 );

@@ -105,6 +105,7 @@ class EditIssue extends Component {
   }
 
   render() {
+    if (this.props.routeName !== 'create') return null;
     return <TableBody><TableRow>{ this.renderEditRow() }</TableRow></TableBody>;
   }
 }
@@ -131,7 +132,8 @@ EditIssue.propTypes = {
   showWarning: PropTypes.func.isRequired,
   isShowWarning: PropTypes.bool.isRequired,
   updateIssueMutation: PropTypes.func.isRequired,
-  createIssueMutation: PropTypes.func.isRequired
+  createIssueMutation: PropTypes.func.isRequired,
+  routeName: PropTypes.string.isRequired
 };
 
 export default EditIssue;

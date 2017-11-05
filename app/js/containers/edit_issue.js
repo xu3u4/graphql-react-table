@@ -6,10 +6,11 @@ import * as queries from 'graphql/queries';
 import { showWarning, endEditMode } from 'actions/action_index';
 import EditIssue from 'components/edit_issue';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
   columns: state.HeadsReducer,
   selectedIssue: state.IssuesReducer.selectedIssue,
-  isShowWarning: state.IssuesReducer.isShowWarning
+  isShowWarning: state.IssuesReducer.isShowWarning,
+  routeName: ownProps.filter
 });
 
 const mapDispatchtoProps = (dispatch) => (

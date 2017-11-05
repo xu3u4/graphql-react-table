@@ -65,7 +65,8 @@ module.exports = {
   devServer: {
     inline: true,
     hot: true,
-    contentBase: './'
+    contentBase: './',
+    historyApiFallback: true
   },
   resolve: {
     modulesDirectories: [ 'app/js', 'node_modules' ]
